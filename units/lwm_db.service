@@ -1,0 +1,15 @@
+[Unit]
+Description=Sesame deployment
+After=docker.service
+Requires=docker.service 
+
+[Service]
+ExecStart=/usr/bin/docker run --name sesame_db -v /opt/sesame_store:/sesame_store -p 8080:8080 sesame_store
+ExecStop=/usr/bin/docker stop sesame_db
+ExecStopPost=/usr/bin/docker rm sesame_db
+Type=notify
+NotifyAccess=all
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

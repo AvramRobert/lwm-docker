@@ -1,0 +1,17 @@
+[Unit]
+Description=Play deployment
+After=docker.service
+Requires=docker.service
+Requires=lwm_db.service
+
+[Service]
+ExecStart=/usr/bin/docker run --name lwm_web -v /opt/lwm:/lwm --link sesame_db:db lwm_container
+ExecStop=/usr/bin/docker stop -t 5 lwm_webapp
+ExecStopPost=/usr/bin/docker rm -f lwm_webapp
+Type=notify
+NotifyAccess=all
+Restart=Always
+TimeoutStopSec=20s
+
+[Install]
+WantedBy=multi-user.target
