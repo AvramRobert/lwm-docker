@@ -15,10 +15,6 @@ RUN tar -xvf jdk-8u31-linux-x64.tar.gz && mv jdk1.8.0_31 java && mv ./java /usr/
 RUN ln -rs /usr/java/bin/java /usr/bin/java
 RUN ln -rs /usr/java/bin/javac /usr/bin/javac
 
-#install sbt
-RUN curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo
-RUN yum -y install sbt
-
 VOLUME /lwm
 
 ENTRYPOINT /lwm/activator run
