@@ -7,7 +7,7 @@ lwmDBService=lwm_db.service
 lwmWebService=lwm_web.service
 
 sesameImage=sesame_store
-lwmImage=lwm_container
+lwmImage=lwm_environment
 
 sesameStoreDirectory=/opt/$sesameImage
 
@@ -30,7 +30,7 @@ if [ ! -d $lwmDirectory ]
 then 
 	echo "LWM directory not found. Pulling from github.."
 
-	sudo git clone $lwmGit $lwmDirectory
+	#sudo git clone $lwmGit $lwmDirectory
 
 fi
 
@@ -40,29 +40,29 @@ then
 	echo "Sesame image not found"
 	echo "Building Sesame container image"
 	
-	sudo docker build -t $sesameImage ./sesame/.
+	#sudo docker build -t $sesameImage ./sesame/.
 fi
 
 if [ "$dockerServerImage" = "" ]
 then
 	echo " "
-	echo "LWM webapp container image not found"
+	echo "LWM app container image not found"
 	echo "Building LWM webapp container image"
 
-	sudo docker build -t $lwmImage ./lwm/.
+	#sudo docker build -t $lwmImage ./lwm/.
 fi
 
 echo "Creating Sesame host data directory"
-sudo mkdir $sesameStoreDirectory
+#sudo mkdir $sesameStoreDirectory
  
 echo " "
 echo "Setting up LWM services"
-sudo cp ./units/$lwmDBService /lib/systemd/system/
-sudo cp ./units/$lwmWebService /lib/systemd/system/
+#sudo cp ./units/$lwmDBService /lib/systemd/system/
+#sudo cp ./units/$lwmWebService /lib/systemd/system/
 
 echo "Starting LWM services"
-sudo systemctl enable $lwmDBService
-sudo systemctl enable $lwmWebService
+#sudo systemctl enable $lwmDBService
+#sudo systemctl enable $lwmWebService
 
-gnome-terminal -x bash -c "sudo systemctl start $lwmDBService"
-sudo systemctl start $lwmWebService
+#gnome-terminal -x bash -c "sudo systemctl start $lwmDBService"
+#sudo systemctl start $lwmWebService

@@ -3,7 +3,7 @@
 lwmDirectory=/opt/lwm
 
 sesameImage=sesame_store
-lwmImage=lwm_container
+lwmImage=lwm_environment
 
 sesameStoreDirectory=/opt/$sesameImage
 
@@ -11,7 +11,7 @@ sesameContainerAlias=sesame_db
 lwmContainerAlias=lwm_web
 
 dockerDBImage=`sudo docker images | awk '{print $1;}' | grep $sesameImage`
-dockerLWMImage=`sudo docker images | awk '{print $1;}' | grep $lwmImage`
+dockerServerImage=`sudo docker images | awk '{print $1;}' | grep $lwmImage`
 
 dockerDBContainer=`sudo docker ps -a | awk '{print $12}' | grep $sesameContainerAlias`
 dockerLWMContainer=`sudo docker ps -a | awk '{print $12}' | grep $lwmContainerAlias`
@@ -48,7 +48,7 @@ fi
 
 echo "Checking images"
 
-if [ $dockerLWMImage = $lwmImage ]
+if [ ! "$dockerServerImage" = "" ]
 then
 	echo "Removing LWM container image"
 	#sudo docker rmi $lwmImage
@@ -58,7 +58,7 @@ else
 	echo "LWM container image already removed"
 fi
 
-if [ $dockerDBImage = $sesameImage ]
+if [ ! "$dockerDBImage" = "" ]
 then
 	echo "Removing sesame image"
 	#sudo docker rmi $sesameImage 
