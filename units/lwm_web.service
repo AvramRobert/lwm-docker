@@ -6,8 +6,8 @@ Requires=lwm_db.service
 
 [Service]
 ExecStart=/usr/bin/docker run --name lwm_web -v /opt/lwm:/lwm --link sesame_db:db -p 9000:9000 lwm_container
-ExecStop=/usr/bin/docker stop -t 5 lwm_webapp
-ExecStopPost=/usr/bin/docker rm -f lwm_webapp
+ExecStop=/usr/bin/docker stop -t 5 lwm_web
+ExecStopPost=/usr/bin/docker rm -f lwm_web
 Type=notify
 NotifyAccess=all
 Restart=Always
